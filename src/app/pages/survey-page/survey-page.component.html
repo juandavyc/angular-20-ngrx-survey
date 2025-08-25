@@ -1,0 +1,44 @@
+<div class="container-normal">
+
+  <p-button label="random" (onClick)="store.reorder();"/>
+  <p-button label="changeLanguage" (onClick)="store.changeLanguage()"></p-button>
+
+
+  @if(store.vm().isCompleted){
+    <div class="flex flex-col gap-3">
+      @for (summary of store.summaryAnswers(); track $index) {
+        <p><strong>Caption: </strong>{{ summary.caption }}</p>
+        <p><strong>Answer: </strong>{{ summary.answer }}</p>
+        <p><strong>isCorrect: </strong>{{ summary.isCorrect }}</p>
+      }
+      <p-button
+        label="reset"
+        severity="danger"
+        size="small"
+        (onClick)="store.reset()" />
+    </div>
+  }
+
+  @else{
+
+    <div class="flex flex-col gap-3">
+      <h1 class="text-2xl">{{store.vm().answersCount +1}} / {{store.vm().questionsCount}}</h1>
+      <h2 class="text-xl"> {{store.vm().currentQuestion.caption}}</h2>
+      <div class="flex flex-row gap-3 items-center">
+        @for(answer of store.vm().currentQuestion.answers; track $index; let first = $first;){
+
+          @if(first){
+            <span>Answers: </span>
+          }
+          <p-button [label]="answer" severity="info" (onClick)="store.setSelectedAnswer(answer)" />
+        }
+      </div>
+      <div class="flex flex-row gap-3 items-center">
+        <p>Selected: <strong>{{store.selectedAnswer()}}</strong></p>
+        <p-button label="previous" (onClick)="store.previous()" [disabled]="store.vm().isFirst" />
+        <p-button label="next" (onClick)="store.next()" [disabled]="!store.selectedAnswer()" />
+      </div>
+    </div>
+  }
+
+</div>

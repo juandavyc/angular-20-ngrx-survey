@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@plugin "tailwindcss-primeui";
+
+
+:root {
+  --p-menubar-padding: .2rem !important;
+  --p-toolbar-border-radius: none !important;
+}
+
+.container-normal{
+  @apply container mx-auto bg-white border border-gray-200 rounded-xl m-10 p-3;
+}

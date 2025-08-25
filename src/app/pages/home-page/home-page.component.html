@@ -1,0 +1,7 @@
+<div class="flex flex-col gap-3">
+  <p-button label="change" (onClick)="appStore.changeLanguage()"/>
+</div>
+
+@for (item of appStore.selectedDictionary(); track $index) {
+  <p>{{item.caption}}</p>
+}
