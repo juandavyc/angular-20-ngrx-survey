@@ -1,7 +1,57 @@
-<div class="flex flex-col gap-3">
-  <p-button label="change" (onClick)="appStore.changeLanguage()"/>
+<p-breadcrumb [model]="items" [home]="home" class="my-10"/>
+<div class="container-normal">
+  <div class="flex flex-col gap-3">
+    <h1 class="text-xl">Welcome to Survey App</h1>
+    <p>This application was developed to test ngrx and one or the occasional primeng component</p>
+    <p-divider />
+    <p-stepper [value]="1">
+      <p-step-item [value]="1">
+        <p-step>Go to survey! </p-step>
+        <p-step-panel>
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="flex flex-col gap-3 items-center">
+              <i class="pi pi-crown" style="font-size: 2rem;"></i>
+              <h2 class="text-xl">Hey dude, go go</h2>
+              <p-button label="Go to survey" icon="pi pi-arrow-right" routerLink="/survey" />
+            </div>
+            <p-divider />
+            <div class="py-6">
+              <p-button label="Next" (onClick)="activateCallback(2)" severity="contrast" size="small" />
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </p-step-item>
+      <p-step-item [value]="2">
+        <p-step>Complete all the questions</p-step>
+        <p-step-panel>
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="flex flex-col gap-3 items-center">
+              <i class="pi pi-palette" style="font-size: 2rem;"></i>
+              <h2 class="text-xl">Try to answer correctly</h2>
+            </div>
+            <p-divider />
+            <div class="flex py-6 gap-2">
+              <p-button label="Back" (onClick)="activateCallback(1)" severity="contrast" size="small" />
+              <p-button label="Next" (onClick)="activateCallback(3)" severity="contrast" size="small" />
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </p-step-item>
+      <p-step-item [value]="3">
+        <p-step>Look the summary</p-step>
+        <p-step-panel>
+          <ng-template #content let-activateCallback="activateCallback">
+            <div class="flex flex-col gap-3 items-center">
+              <i class="pi pi-chart-bar" style="font-size: 2rem;"></i>
+              <h2 class="text-xl">will all be correct?</h2>
+            </div>
+            <p-divider />
+            <div class="py-6">
+              <p-button label="Back" (onClick)="activateCallback(2)" severity="contrast" size="small" />
+            </div>
+          </ng-template>
+        </p-step-panel>
+      </p-step-item>
+    </p-stepper>
+  </div>
 </div>
-
-@for (item of appStore.selectedDictionary(); track $index) {
-  <p>{{item.caption}}</p>
-}

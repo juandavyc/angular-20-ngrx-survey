@@ -6,4 +6,5 @@ export interface SurveyVm {
   isCompleted: boolean;
   isFirst: boolean;
   questionsCount: number;
+  selectedLanguage: string;
 }

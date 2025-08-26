@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { SurveyStore } from './pages/survey-page/store/survey.store';
 
 export const routes: Routes = [
 
@@ -9,7 +10,8 @@ export const routes: Routes = [
   },
   {
     path: 'survey',
-    loadComponent: ()=>import('./pages/survey-page/survey-page.component')
+    loadChildren: () => import('./pages/survey-page/survey.routes'),
+    // providers: [SurveyStore]
   },
   {
     path: '**',

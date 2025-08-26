@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
+import { AppLogoComponent } from '@shared/ui/components/app-logo/app-logo.component';
 
 import { MenuItem } from 'primeng/api';
 
@@ -7,6 +8,7 @@ import { MenuItem } from 'primeng/api';
   selector: 'app-toolbar',
   imports: [
     SharedModule,
+    AppLogoComponent,
   ],
   templateUrl: './app-toolbar.component.html',
   styleUrl: './app-toolbar.component.css',
@@ -18,12 +20,18 @@ export class AppToolbarComponent {
   items: MenuItem[] = [
     {
       label: 'Home',
-      routerLink: '/home',
+      routerLink: ['/home'],
+      icon: 'pi pi-home',
       command: () => this.closeDrawer()
     },
     {
       label: 'Survey',
-      routerLink: '/survey',
+      routerLink: ['/survey/quiz'],
+      command: () => this.closeDrawer()
+    },
+    {
+      label: 'Summary',
+      routerLink: ['/survey/summary'],
       command: () => this.closeDrawer()
     }
   ]

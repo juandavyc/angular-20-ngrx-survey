@@ -4,6 +4,7 @@ import { SurveyVm } from "./survey.vm";
 export function buildSurveyVm(
   questions: Question[],
   answers: string[],
+  selectedLanguage: string,
 ):SurveyVm {
 
   const questionsCount = questions.length;
@@ -18,5 +19,6 @@ export function buildSurveyVm(
     isCompleted,
     isFirst,
     questionsCount,
+    selectedLanguage,
   }
 }

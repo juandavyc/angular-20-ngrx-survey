@@ -11,7 +11,11 @@ export const SurveyStore = signalStore(
   withProps(_ => {
     const appStore = inject(AppStore);
     const questions = computed(() => appStore.selectedDictionary());
-    return { _questions: questions, _changeLanguage: appStore.changeLanguage }
+    return {
+      _questions: questions,
+      _changeLanguage: appStore.changeLanguage,
+      _selectedLanguage: appStore.selectedLanguage
+    }
   }),
   withComputed((store) => {
 
@@ -20,7 +24,8 @@ export const SurveyStore = signalStore(
     // const isDone = computed(() => answersCount() == store._questions().length);
     const summaryAnswers = computed(() => getCorrectAnswers(store.answers(), store._questions()));
     // const isFirst = computed(() => answersCount() == 0);
-    const vm = computed(() => buildSurveyVm(store._questions(), store.answers()));
+    const vm = computed(() => buildSurveyVm(store._questions(), store.answers(), store._selectedLanguage()));
+
     return {
       vm,
       // currentQuestion,
@@ -54,9 +59,7 @@ export const SurveyStore = signalStore(
         store._changeLanguage();
         patchState(store, reset());
         saveInLocalStorage([]);
-
       },
-
     }
   }),
   withHooks((store) => ({

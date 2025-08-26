@@ -1,23 +1,25 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 import { SurveyStore } from './store/survey.store';
-import { SharedModule } from '@shared/shared.module';
-import { AppStore } from 'src/app/store/app.store';
-
 
 
 @Component({
   selector: 'app-survey-page',
   imports: [
-    SharedModule
+    RouterOutlet,
   ],
   templateUrl: './survey-page.component.html',
   styleUrl: './survey-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [SurveyStore]
 })
-export default class SurveyPageComponent {
+export class SurveyPageComponent {
 
-  appStore =inject(AppStore);
-  store = inject(SurveyStore);
+  items: MenuItem[] = [
+    { label: 'Survey', routerLink: '/survey' },
+  ];
+
+  home: MenuItem = { icon: 'pi pi-home', routerLink: '/home' };
 
 }

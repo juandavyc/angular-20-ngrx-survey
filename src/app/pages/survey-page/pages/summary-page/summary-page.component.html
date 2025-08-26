@@ -1,0 +1,34 @@
+@if (!store.vm().isCompleted) {
+  <p class="text-center">
+    please, finish the form
+  </p>
+  <div class="flex justify-center">
+    <p-button label="Go to quiz" severity="danger" [routerLink]="['/survey/quiz']" />
+  </div>
+}
+@else{
+  <h2 class="text-xl my-5">Summary</h2>
+  <p-table [value]="store.summaryAnswers()">
+    <ng-template #header>
+      <tr>
+        <th>Caption</th>
+        <th>Answer</th>
+        <th>Correct</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-summary>
+      <tr>
+        <td>{{ summary.caption }}</td>
+        <td>{{ summary.answer }}</td>
+        <td>
+          @let answerCorrect = summary.isCorrect | appAnswerStatus;
+          <p-tag [severity]="answerCorrect.severity" [value]="answerCorrect.value" />
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <p-divider/>
+  <div class="flex justify-center">
+    <p-button label="Try again" (onClick)="resetAndGoToQuiz()"/>
+  </div>
+}

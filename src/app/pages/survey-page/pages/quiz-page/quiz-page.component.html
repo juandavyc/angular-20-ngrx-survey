@@ -1,0 +1,63 @@
+<div class="flex gap-3 justify-between items-center">
+  <h2 class="text-2xl">{{store.vm().answersCount}} / {{store.vm().questionsCount}}</h2>
+  <div class="flex gap-3 items-center">
+    <h3 class="text-xl font-bold uppercase">{{store.vm().selectedLanguage}}</h3>
+    <p-button label="Change language" (onClick)="store.changeLanguage()" severity="info" size="small" />
+  </div>
+</div>
+<div class="mx-auto w-sm my-5">
+  <p-progressbar [value]="progress()">
+    <ng-template #content let-value>
+      <span>{{progress()}} %</span>
+    </ng-template>
+  </p-progressbar>
+</div>
+@if(store.vm().isCompleted){
+  <div class="flex flex-col gap-3">
+    <!-- @for (summary of store.summaryAnswers(); track $index) {
+    <p><strong>Caption: </strong>{{ summary.caption }}</p>
+    <p><strong>Answer: </strong>{{ summary.answer }}</p>
+    <p><strong>isCorrect: </strong>{{ summary.isCorrect }}</p>
+    } -->
+    <!-- <p-button label="reset" severity="danger" size="small" (onClick)="store.reset()" /> -->
+    <p class="text-center">The quiz is over, please select an option</p>
+    <div class="flex justify-center gap-3">
+      <p-button label="Reset" severity="danger" (onClick)="store.reset()" />
+      <p-button label="Summary" severity="info" [routerLink]="['/survey/summary']" />
+    </div>
+  </div>
+}
+@else{
+  <p-panel [header]="'Question # '+(store.vm().answersCount)">
+    <p class="text-center text-xl">{{store.vm().currentQuestion.caption}}</p>
+    <p-divider/>
+    <div class="flex flex-row gap-3 justify-center items-center">
+      @for(answer of store.vm().currentQuestion.answers; track $index;){
+          <p-button
+            [label]="answer"
+            severity="warn"
+            size="small"
+            (onClick)="store.setSelectedAnswer(answer)"/>
+      }
+    </div>
+    <p-divider/>
+    <h2 class="text-center text-base">Selected: <strong>{{store.selectedAnswer()}}</strong></h2>
+  </p-panel>
+  <div class="flex flex-row justify-end items-center gap-3 mt-5">
+    <p-button
+      label="previous"
+      icon="pi pi-arrow-left"
+      size="small"
+      severity="info"
+      (onClick)="store.previous()"
+      [disabled]="store.vm().isFirst"/>
+    <p-button
+      label="next"
+      icon="pi pi-arrow-right"
+      size="small"
+      severity="info"
+      (onClick)="store.next()"
+      [disabled]="!store.selectedAnswer()"
+      />
+  </div>
+}
